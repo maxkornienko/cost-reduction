@@ -1,0 +1,47 @@
+@startuml
+' Локальная библиотека C4 – без обращения в интернет.
+!RELATIVE_INCLUDE = "."
+!include ../../C4PlantUML/C4_Container.puml
+
+hide stereotype
+SHOW_PERSON_OUTLINE()
+
+title C4 Container – кассовая зона VitaStore (AS-IS)
+
+Person(cashier, "Кассир", "Сотрудник магазина")
+Person(engineer, "Выездной ИТ-инженер", "Приезжает в купленный магазин")
+Person(merch, "Товаровед HQ", "Команда Data Integration")
+Lay_R(cashier, engineer)
+Lay_R(engineer, merch)
+
+System_Boundary(hq, "Central Office (HQ, on-premises)") {
+    System(sap, "SAP ERP", "Учёт товаров, кадров, финансов; цены; лояльность")
+}
+
+System_Boundary(store, "Store Edge (Магазин)") {
+    Container(pos, "POS App (Толстый клиент)", "Windows, C#", "Монолитное десктопное приложение. Содержит бизнес-логику и драйверы устройств.")
+    ContainerDb(localDb, "Local DB", "MS SQL Server/PostgreSQL зависит от магазина", "БД на сервере в подсобке. Хранит чеки и справочники магазина.")
+}
+
+System_Ext(printer, "Fiscal Printer", "Фискальный регистратор (ККТ), COM-port")
+System_Ext(terminals, "Банковские терминалы", "Разнородный парк: Сбербанк, Альфа, Ingenico, Verifone")
+
+Rel_D(cashier, pos, "Работает с кассой", "UI")
+Rel_R(pos, localDb, "Загружает прайс-листы, читает цены, пишет чеки", "Synchronous")
+Rel_D(pos, printer, "Прямое управление печатью", "COM-port driver")
+Rel_D(pos, terminals, "Инициация оплаты", "Отдельный драйвер под каждую модель")
+Rel_U(pos, sap, "Проверка и списание баллов лояльности", "Онлайн; при обрыве связи – тайм-аут")
+Rel_D(sap, pos, "Прайс-листы и справочники, пакет XML", "FTP, ночью в 02:00")
+
+Rel_D(engineer, pos, "Снимает дамп базы товаров со старой кассы", "CSV/XLS, на месте")
+Rel_R(engineer, merch, "Отправляет дамп", "email")
+Rel_D(merch, sap, "Сопоставляет позиции вручную и загружает итоговый файл", "Excel, VLOOKUP")
+
+note bottom of pos
+POS App жестко привязан
+к конкретным моделям
+оборудования через
+встроенные драйверы.
+end note
+
+@enduml

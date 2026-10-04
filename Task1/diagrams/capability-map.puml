@@ -1,0 +1,151 @@
+@startuml
+
+<style>
+rectangle {
+  MinimumWidth 200
+  MaximumWidth 400
+}
+</style>
+
+skinparam defaultFontName Arial
+skinparam defaultTextAlignment center
+skinparam shadowing false
+skinparam padding 4
+skinparam nodesep 14
+skinparam ranksep 14
+
+skinparam rectangle {
+    RoundCorner 8
+    BorderColor #8C8C8C
+    BackgroundColor #FFFFFF
+    FontSize 12
+}
+skinparam rectangle<<L1>> {
+    BackgroundColor #EEF7EE
+    BorderColor #7FA67F
+    FontStyle bold
+    FontSize 14
+}
+skinparam rectangle<<red>> {
+    BackgroundColor #F4B6B6
+    BorderColor #C0392B
+}
+skinparam rectangle<<green>> {
+    BackgroundColor #B7E1C1
+    BorderColor #1E8449
+}
+' Пустая ячейка: все полосы одной длины
+skinparam rectangle<<gap>> {
+    BackgroundColor transparent
+    BorderColor transparent
+    FontColor transparent
+}
+hide stereotype
+
+title Карта бизнес-возможностей VitaStore (L1–L2)
+
+rectangle "Продажи" <<L1>> {
+    rectangle "Пробитие\nчеков" <<red>> as b1_1
+    rectangle "Работа с разными\nплатёжными терминалами" <<red>> as b1_2
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b1_3
+}
+rectangle "Работа с клиентами" <<L1>> {
+    rectangle "Программа\nлояльности" <<red>> as b2_1
+    rectangle "Приём заказов\nот клиентов" <<green>> as b2_2
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b2_3
+}
+rectangle "Логистика" <<L1>> {
+    rectangle "Приём товара\nот поставщиков" <<red>> as b3_1
+    rectangle "Количественный\nучёт товаров" <<red>> as b3_2
+    rectangle "Доставка заказанных\nтоваров" <<green>> as b3_3
+}
+rectangle "Управление ассортиментом" <<L1>> {
+    rectangle "Выбор\nцены" as b4_1
+    rectangle "Проведение\nпромоакций" as b4_2
+    rectangle "Печать\nценников" <<red>> as b4_3
+}
+rectangle "Работа с поставщиками" <<L1>> {
+    rectangle "Запрос\nна поставку" as b5_1
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b5_2
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b5_3
+}
+rectangle "Маркетинг" <<L1>> {
+    rectangle "Продвижение бренда\nи повышение узнаваемости" as b6_1
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b6_2
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b6_3
+}
+rectangle "M&A" <<L1>> {
+    rectangle "Поиск\nмагазинов" as b7_1
+    rectangle "Оценка\nрентабельности" as b7_2
+    rectangle "Формирование документов\nи предложений для покупки" as b7_3
+}
+rectangle "Онбординг магазина" <<L1>> {
+    rectangle "Маппинг\nтоваров" <<red>> as b8_1
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b8_2
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b8_3
+}
+rectangle "Управление данными" <<L1>> {
+    rectangle "Хранение\nбазы товаров" as b9_1
+    rectangle "Редактирование штрихкодов\nи наименований" as b9_2
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b9_3
+}
+rectangle "Финансы и управление затратами" <<L1>> {
+    rectangle "Инкассация\nвыручки" <<red>> as b10_1
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b10_2
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b10_3
+}
+rectangle "Управление персоналом и операционной эффективностью" <<L1>> {
+    rectangle "Расчёт премий\nпродавцам" <<red>> as b11_1
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b11_2
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b11_3
+}
+rectangle "Техническая поддержка" <<L1>> {
+    rectangle "Непрерывная и стабильная\nработа магазина" <<red>> as b12_1
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b12_2
+    rectangle "<U+00A0>\n<U+00A0>" <<gap>> as b12_3
+}
+
+' ===== Раскладка: внутри полосы – слева направо, полосы – сверху вниз =====
+b1_1 -[hidden]right- b1_2
+b1_2 -[hidden]right- b1_3
+b2_1 -[hidden]right- b2_2
+b2_2 -[hidden]right- b2_3
+b3_1 -[hidden]right- b3_2
+b3_2 -[hidden]right- b3_3
+b4_1 -[hidden]right- b4_2
+b4_2 -[hidden]right- b4_3
+b5_1 -[hidden]right- b5_2
+b5_2 -[hidden]right- b5_3
+b6_1 -[hidden]right- b6_2
+b6_2 -[hidden]right- b6_3
+b7_1 -[hidden]right- b7_2
+b7_2 -[hidden]right- b7_3
+b8_1 -[hidden]right- b8_2
+b8_2 -[hidden]right- b8_3
+b9_1 -[hidden]right- b9_2
+b9_2 -[hidden]right- b9_3
+b10_1 -[hidden]right- b10_2
+b10_2 -[hidden]right- b10_3
+b11_1 -[hidden]right- b11_2
+b11_2 -[hidden]right- b11_3
+b12_1 -[hidden]right- b12_2
+b12_2 -[hidden]right- b12_3
+b1_1 -[hidden]down- b2_1
+b2_1 -[hidden]down- b3_1
+b3_1 -[hidden]down- b4_1
+b4_1 -[hidden]down- b5_1
+b5_1 -[hidden]down- b6_1
+b6_1 -[hidden]down- b7_1
+b7_1 -[hidden]down- b8_1
+b8_1 -[hidden]down- b9_1
+b9_1 -[hidden]down- b10_1
+b10_1 -[hidden]down- b11_1
+b11_1 -[hidden]down- b12_1
+
+legend right
+  |<#F4B6B6> | Дорогие и проблемные зоны |
+  |<#B7E1C1> | Уникальные конкурентные преимущества |
+  |<#FFFFFF> | Без особенностей |
+endlegend
+
+@enduml
